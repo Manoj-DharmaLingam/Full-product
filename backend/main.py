@@ -41,8 +41,12 @@ def ensure_legacy_schema_columns() -> None:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    Base.metadata.create_all(bind=engine)
-    ensure_legacy_schema_columns()
+    try:
+        Base.metadata.create_all(bind=engine)
+        ensure_legacy_schema_columns()
+    except Exception as exc:
+        # Log and continue — schema should already exist via supabase_schema.sql
+        print(f"[startup] DB init warning (non-fatal): {exc}")
     yield
 
 
