@@ -1,18 +1,25 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import NullPool
 
 from core.config import settings
 
 _url = settings.DATABASE_URL
 _is_local = "localhost" in _url or "127.0.0.1" in _url
-_connect_args = {} if _is_local else {"sslmode": "require"}
 
-engine = create_engine(
-    _url,
-    pool_pre_ping=True,
-    future=True,
-    connect_args=_connect_args,
-)
+if _is_local:
+    engine = create_engine(_url, pool_pre_ping=True, future=True)
+else:
+    # Serverless (Vercel) — NullPool prevents connection exhaustion
+    # Supabase requires sslmode=require for all non-local connections
+    engine = create_engine(
+        _url,
+        pool_pre_ping=True,
+        future=True,
+        poolclass=NullPool,
+        connect_args={"sslmode": "require"},
+    )
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
