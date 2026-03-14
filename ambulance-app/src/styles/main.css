@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&display=swap');
+
+/* ─── Design Tokens ───────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --primary:        #2EC4B6;
+  --primary-dark:   #1aaa9d;
+  --primary-light:  rgba(46, 196, 182, .10);
+  --primary-mid:    rgba(46, 196, 182, .22);
+  --primary-glow:   rgba(46, 196, 182, .38);
+
+  /* Aliases expected by existing component code */
+  --purple-accent:  #2EC4B6;
+  --purple-light:   rgba(46, 196, 182, .10);
+  --purple-mid:     rgba(46, 196, 182, .22);
+
+  /* Surfaces */
+  --blush:          #F7FAFA;
+  --blush-mid:      #edf7f6;
+  --peach:          #c9ecea;
+  --cream:          #ffffff;
+  --white:          #ffffff;
+  --bg-secondary:   #edf7f6;
+
+  /* Text */
+  --text-dark:      #0d2f2d;
+  --text-mid:       #3d6865;
+  --text-light:     #6a9997;
+  --text-muted:     #aac8c5;
+
+  /* Status */
+  --success:        #10b981;  --success-bg: #d1fae5;
+  --danger:         #ef4444;  --danger-bg:  #fee2e2;
+  --warning:        #f59e0b;  --warning-bg: #fef3c7;
+
+  /* Borders */
+  --border:         rgba(46, 196, 182, .18);
+  --border-soft:    rgba(46, 196, 182, .12);
+
+  /* Shape */
+  --radius-pill:    999px;
+  --radius-lg:      14px;
+  --radius-md:      10px;
+  --radius-sm:      7px;
+
+  /* Shadows */
+  --shadow-card:       0 2px 16px rgba(46,196,182,.09), 0 1px 4px rgba(0,0,0,.05);
+  --shadow-card-hover: 0 8px 32px rgba(46,196,182,.16), 0 2px 8px rgba(0,0,0,.07);
+  --shadow-btn:        0 4px 14px rgba(46,196,182,.36);
+
+  /* Motion */
+  --t-fast:  0.14s ease;
+  --t-mid:   0.2s ease;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+html, body, #root { min-height: 100%; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--blush);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a      { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+::-webkit-scrollbar            { width: 6px; }
+::-webkit-scrollbar-track      { background: var(--blush-mid); }
+::-webkit-scrollbar-thumb      { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover{ background: var(--primary); }
+
+::selection { background: var(--primary-light); color: var(--primary-dark); }
+
+/* ─── Keyframes ──────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes slide-right {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+@keyframes spin        { to { transform: rotate(360deg); } }
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+@keyframes pulse-soft  { 0%,100%{opacity:1;} 50%{opacity:.35;} }
+@keyframes progressIn  { from { width: 0; } }
+
+/* ─── Utility ────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block; width: 18px; height: 18px;
+  border: 2px solid var(--primary-light); border-top-color: var(--primary);
+  border-radius: 50%; animation: spin .75s linear infinite;
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--blush) 25%, var(--blush-mid) 50%, var(--blush) 75%);
+  background-size: 600px 100%; animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+.deco-line {
+  width: 32px; height: 2px;
+  background: var(--primary-mid); border-radius: 2px; margin: 0 auto .5rem;
+}

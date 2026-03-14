@@ -1,0 +1,123 @@
+/* ambulance-app/src/styles/dashboard.css — MediCore Ambulance Redesign */
+
+/* ─── Dashboard Shell ─────────────────────────────────────────── */
+.dashboard {
+  display: flex; flex-direction: column;
+  min-height: 100vh; background: var(--blush);
+  animation: fade-up 0.4s ease;
+}
+
+/* ─── Announcement Bar ────────────────────────────────────────── */
+.announcement-bar {
+  background: linear-gradient(90deg, #0d2f2d 0%, #1a5754 60%, #2EC4B6 100%);
+  color: rgba(255,255,255,.9); text-align: center;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; padding: 8px 1rem;
+}
+
+/* ─── Header ──────────────────────────────────────────────────── */
+.header {
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 0 2.5rem; height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 20px rgba(46,196,182,.08);
+}
+.header__brand { display: flex; align-items: center; gap: 13px; }
+.header__logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #2EC4B6, #1aaa9d);
+  border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(46,196,182,.32); flex-shrink: 0;
+}
+.header__title    { font-size: 1.05rem; font-weight: 800; color: var(--text-dark); letter-spacing: -.02em; }
+.header__subtitle { font-size: .68rem; font-weight: 600; color: var(--text-light); letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; }
+
+.header__status {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--blush-mid); border: 1px solid var(--border-soft);
+  border-radius: var(--radius-pill); padding: 7px 14px;
+  font-size: .78rem; color: var(--text-mid); font-weight: 500;
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--success);
+  flex-shrink: 0; animation: pulse-soft 2.2s ease-in-out infinite;
+}
+.status-dot.warning { background: var(--warning); }
+.status-dot.danger  { background: var(--danger); }
+
+/* ─── Hero Strip ──────────────────────────────────────────────── */
+.hero-strip {
+  background: linear-gradient(135deg, #0d2f2d 0%, #1a5754 55%, #2EC4B6 100%);
+  padding: 2.5rem; position: relative; overflow: hidden;
+}
+.hero-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 50%, rgba(46,196,182,.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-strip__content { flex: 1; text-align: center; position: relative; z-index: 1; }
+.hero-strip__badge {
+  background: rgba(46,196,182,.25); color: #a7f3ee;
+  border: 1px solid rgba(46,196,182,.35); font-size: .62rem; font-weight: 800;
+  letter-spacing: .15em; text-transform: uppercase; padding: 5px 14px;
+  border-radius: var(--radius-pill); display: inline-block; margin-bottom: .6rem;
+}
+.hero-strip__heading {
+  font-size: 1.75rem; font-weight: 800; color: #fff;
+  line-height: 1.2; margin-bottom: .3rem; letter-spacing: -.02em;
+}
+.hero-strip__sub { font-size: .85rem; color: rgba(255,255,255,.75); }
+
+/* ─── Body Grid ───────────────────────────────────────────────── */
+.dashboard__body {
+  flex: 1; display: grid; grid-template-columns: 380px 1fr;
+  gap: 1.75rem; padding: 1.75rem 2.5rem;
+  max-width: 1600px; width: 100%; margin: 0 auto; align-items: start;
+}
+.left-panel  { display: flex; flex-direction: column; gap: 1.2rem; animation: slide-right .4s ease; }
+.right-panel { display: flex; flex-direction: column; gap: 1.2rem; animation: fade-up .5s ease .1s both; min-width: 0; }
+
+/* ─── Map Section ─────────────────────────────────────────────── */
+.map-section {
+  padding: 0 2.5rem 2.5rem;
+  max-width: 1600px; width: 100%; margin: 0 auto;
+  animation: fade-up .5s ease .2s both;
+}
+.map-section__label {
+  font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-light);
+  margin-bottom: .65rem; display: flex; align-items: center; gap: 7px;
+}
+
+/* ─── Section Heading ─────────────────────────────────────────── */
+.section-heading { font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: .3rem; }
+
+/* ─── Toast ───────────────────────────────────────────────────── */
+.toast-container {
+  position: fixed; bottom: 24px; right: 1.75rem; z-index: 300;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  padding: 12px 18px; border-radius: var(--radius-md); font-size: .84rem;
+  font-weight: 500; max-width: 360px; display: flex; align-items: center; gap: 9px;
+  animation: fade-up .3s ease; border: 1px solid; box-shadow: var(--shadow-card);
+}
+.toast.success { background: var(--success-bg); border-color: rgba(16,185,129,.25); color: #065f46; }
+.toast.error   { background: var(--danger-bg);  border-color: rgba(239,68,68,.22);  color: #991b1b; }
+.toast.info    { background: var(--primary-light); border-color: var(--primary-mid); color: var(--primary-dark); }
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .dashboard__body { grid-template-columns: 340px 1fr; gap: 1.25rem; }
+}
+@media (max-width: 768px) {
+  .header { padding: 0 1.2rem; height: 60px; }
+  .header__subtitle { display: none; }
+  .hero-strip { padding: 1.8rem 1.2rem; }
+  .hero-strip__heading { font-size: 1.4rem; }
+  .dashboard__body { grid-template-columns: 1fr; padding: 1.2rem; }
+  .map-section { padding: 0 1.2rem 1.8rem; }
+}
